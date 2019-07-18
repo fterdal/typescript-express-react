@@ -5,7 +5,7 @@ interface CookieInstance {
   quantity: number
 }
 
-export default class Cookie {
+export class Cookie {
   constructor() {
     this.cookies = []
   }
@@ -40,3 +40,5 @@ export default class Cookie {
     return true
   }
 }
+
+export default new Cookie()

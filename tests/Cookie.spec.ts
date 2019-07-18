@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import Cookie from '../src/Cookie'
+import { Cookie } from '../src/Cookie'
 
 describe('Cookie Model', () => {
   let MyCookies = new Cookie()
