@@ -12,7 +12,7 @@ app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.use('/cookies', cookiesRouter)
+app.use('/api/cookies', cookiesRouter)
 
 app.use(express.static('public'))
 
