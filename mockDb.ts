@@ -24,16 +24,17 @@ export class Cookie {
       }, -Infinity)
     )
   }
-  findAll() {
+  async findAll(): Promise<CookieInstance[]> {
     return Promise.resolve(this.cookies)
   }
-  create(cookie: CookieInstance) {
-    this.cookies.push({ ...cookie, id: this._nextId() })
-    return Promise.resolve(this.cookies)
+  async create(cookie: CookieInstance): Promise<CookieInstance> {
+    const newCookie = { ...cookie, id: this._nextId() }
+    this.cookies.push(newCookie)
+    return Promise.resolve(newCookie)
   }
-  findByPk(id: number): CookieInstance | null {
+  async findByPk(id: number): Promise<CookieInstance | null> {
     const found = this.cookies.find(cookie => cookie.id === id)
-    if (!found) return null
-    return found
+    if (found) return found
+    return null
   }
 }
