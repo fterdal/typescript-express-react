@@ -5,17 +5,13 @@ interface CookieInstance {
   quantity: number
 }
 
-export class Cookie {
+export default class Cookie {
   constructor() {
-    // Here's some dummy data to start off with:
-    this.cookies = [
-      { id: 1, name: 'Chocolate Chip', glutenFree: false, quantity: 6 },
-      { id: 2, name: 'Oatmeal Raisin', glutenFree: true, quantity: 16 },
-      { id: 3, name: 'Snickerdoodle', glutenFree: false, quantity: 7 },
-    ]
+    this.cookies = []
   }
   cookies: CookieInstance[]
   private nextId(): number {
+    if (!this.cookies.length) return 1
     return (
       1 +
       this.cookies.reduce((highestId: number, obj: any) => {
@@ -25,7 +21,7 @@ export class Cookie {
     )
   }
   async findAll(): Promise<CookieInstance[]> {
-    return this.cookies
+    return [...this.cookies]
   }
   async create(cookie: CookieInstance): Promise<CookieInstance> {
     const newCookie = { ...cookie, id: this.nextId() }
@@ -34,7 +30,7 @@ export class Cookie {
   }
   async findByPk(id: number): Promise<CookieInstance | null> {
     const found = this.cookies.find(cookie => cookie.id === id)
-    if (found) return found
+    if (found) return { ...found }
     return null
   }
   async destroyByPk(id: number): Promise<boolean> {
