@@ -33,6 +33,11 @@ export class Cookie {
     return newCookie
   }
 
+  // TODO: Test this
+  async bulkCreate(cookies: CookieInstance[]): Promise<CookieInstance[]> {
+    return Promise.all(cookies.map(cookie => this.create(cookie)))
+  }
+
   async findByPk(id: number): Promise<CookieInstance | null> {
     const found = this.cookies.find(cookie => cookie.id === id)
     if (found) return { ...found }
@@ -46,18 +51,17 @@ export class Cookie {
     return true
   }
 
-  // TODO: Test this one
+  // TODO: Test this
   async editByPk(
     id: number,
     updates: CookieInstance
   ): Promise<CookieInstance | null> {
-
     const cookieToEdit = await this.findByPk(id)
     if (cookieToEdit === null) return null
 
     this.cookies = this.cookies.map(cookie => {
       if (cookie.id !== id) return cookie
-      return { ...cookie, updates }
+      return { ...cookie, ...updates }
     })
     return this.findByPk(id)
   }
