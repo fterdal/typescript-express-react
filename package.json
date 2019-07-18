@@ -6,7 +6,8 @@
   "scripts": {
     "watch-ts": "tsc --watch",
     "watch-server": "MODE='development' nodemon dist/main.js",
-    "start-dev": "npm run watch-ts & npm run watch-server",
+    "copy-static": "cpx 'src/public/**/*.{html,png,js,css}' dist/public --watch",
+    "start-dev": "npm run watch-ts & npm run watch-server & npm run copy-static",
     "test": "mocha --watch --watch-extensions ts -r ts-node/register tests/**/*.spec.ts"
   },
   "keywords": [],
@@ -25,6 +26,7 @@
     "@types/mocha": "^5.2.7",
     "@types/morgan": "^1.7.35",
     "chai": "^4.2.0",
+    "cpx": "^1.5.0",
     "mocha": "^6.1.4",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
