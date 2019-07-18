@@ -1,4 +1,4 @@
-interface CookieInstance {
+export interface CookieInstance {
   readonly id?: number
   name: string
   glutenFree: boolean

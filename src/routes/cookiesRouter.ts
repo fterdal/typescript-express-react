@@ -16,6 +16,7 @@ cookiesRouter.get('/:id', async (req, res, next) => {
   try {
     const id = Number(req.params.id)
     const cookie = await Cookie.findByPk(id)
+    if (!cookie) return res.sendStatus(404)
     res.json(cookie)
   } catch (err) {
     next(err)
