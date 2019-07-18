@@ -21,7 +21,7 @@ app.get('/', (req, res, next) => {
 
 const PORT = 8080
 app.listen(PORT, async () => {
-  if (process.env.ENV === 'development') {
+  if (process.env.MODE === 'development') {
     await seedCookies()
   }
   console.log(`Listening on port ${PORT}`)
