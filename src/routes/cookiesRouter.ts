@@ -30,3 +30,14 @@ cookiesRouter.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+cookiesRouter.delete('/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    const deleted = await Cookie.destroyByPk(id)
+    if (deleted) return res.sendStatus(204)
+    res.sendStatus(404)
+  } catch (err) {
+    next(err)
+  }
+})
