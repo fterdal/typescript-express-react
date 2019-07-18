@@ -41,3 +41,16 @@ cookiesRouter.delete('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+cookiesRouter.put('/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    const cookieUpdates = req.body
+    const foundCookie = await Cookie.findByPk(id)
+    if (!foundCookie) return res.sendStatus(404)
+    const updatedCookie = await Cookie.editByPk(id, cookieUpdates)
+    res.json(updatedCookie)
+  } catch (err) {
+    next(err)
+  }
+})
