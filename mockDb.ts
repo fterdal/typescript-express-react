@@ -15,7 +15,7 @@ export class Cookie {
     ]
   }
   cookies: CookieInstance[]
-  _nextId(): number {
+  private nextId(): number {
     return (
       1 +
       this.cookies.reduce((highestId: number, obj: any) => {
@@ -25,16 +25,22 @@ export class Cookie {
     )
   }
   async findAll(): Promise<CookieInstance[]> {
-    return Promise.resolve(this.cookies)
+    return this.cookies
   }
   async create(cookie: CookieInstance): Promise<CookieInstance> {
-    const newCookie = { ...cookie, id: this._nextId() }
+    const newCookie = { ...cookie, id: this.nextId() }
     this.cookies.push(newCookie)
-    return Promise.resolve(newCookie)
+    return newCookie
   }
   async findByPk(id: number): Promise<CookieInstance | null> {
     const found = this.cookies.find(cookie => cookie.id === id)
     if (found) return found
     return null
+  }
+  async destroyByPk(id: number): Promise<boolean> {
+    const found = this.cookies.find(cookie => cookie.id === id)
+    if (!found) return false
+    this.cookies = this.cookies.filter(cookie => cookie.id !== id)
+    return true
   }
 }
