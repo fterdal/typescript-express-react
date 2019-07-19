@@ -14,7 +14,7 @@ app.use(express.json())
 
 app.use('/api/cookies', cookiesRouter)
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
