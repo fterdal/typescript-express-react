@@ -1,16 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-const NavBar = ({ children }: { children: any }) => {
-  return <nav>{children}</nav>
-}
+import { NavBar } from './components'
 
 const App = () => {
   return (
     <>
-      <NavBar>
-        <h1>Hello Typescript</h1>
-      </NavBar>
+      <NavBar />
       <ul>
         <li>
           <a href="/api/cookies">All Cookies</a>
