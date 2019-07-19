@@ -71,4 +71,53 @@ describe('Cookie Model', () => {
       throw new Error(`Oh no! Deleted too many cookies!`)
     }
   })
+
+  it('can create cookies in bulk', async () => {
+    expect(await MyCookies.findAll()).to.have.length(0)
+    const createdCookies = await MyCookies.bulkCreate([
+      {
+        name: 'snickerdoodle',
+        glutenFree: false,
+        quantity: 5,
+      },
+      {
+        name: 'macadamia nut',
+        glutenFree: true,
+        quantity: 13,
+      },
+    ])
+    expect(await MyCookies.findAll()).to.have.length(2)
+    expect(createdCookies[1]).to.include({
+      name: 'macadamia nut',
+      glutenFree: true,
+      quantity: 13,
+    })
+  })
+
+  it('can edit a cookie by primary key (pk)', async () => {
+    expect(await MyCookies.findAll()).to.have.length(0)
+    await MyCookies.bulkCreate([
+      {
+        name: 'snickerdoodle',
+        glutenFree: false,
+        quantity: 5,
+      },
+      {
+        name: 'macadamia nut',
+        glutenFree: true,
+        quantity: 13,
+      },
+    ])
+
+    const editedCookie = await MyCookies.editByPk(1, { name: 'oreo' })
+    if (editedCookie === null) {
+      throw new Error('editByPk did not return an edited cookie')
+    }
+    expect(editedCookie.name).to.equal('oreo')
+    const oreo = await MyCookies.findByPk(1)
+    if (oreo === null) {
+      throw new Error('could not find cookie after editByPk')
+    }
+    expect(oreo.name).to.equal('oreo')
+  })
 })
