@@ -50,10 +50,7 @@ export class Cookie {
     return true
   }
 
-  async editByPk(
-    id: number,
-    updates: any
-  ): Promise<CookieInstance | null> {
+  async editByPk(id: number, updates: any): Promise<CookieInstance | null> {
     const cookieToEdit = await this.findByPk(id)
     if (cookieToEdit === null) return null
 
