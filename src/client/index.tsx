@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { NavBar } from './components'
 
+import store from './store'
+
 const App = () => {
+  useEffect(() => {
+    store.dispatch({ type: 'HELLO_REDUX' })
+  })
   return (
-    <>
+    <Provider store={store}>
       <NavBar />
-      <ul>
-        <li>
-          <a href="/api/cookies">All Cookies</a>
-        </li>
-        <li>
-          <a href="/api/cookies/1">Cookie: 1</a>
-        </li>
-      </ul>
-    </>
+      <h3 style={{ textAlign: 'center' }}>Home Page</h3>
+    </Provider>
   )
 }
 

@@ -1,7 +1,13 @@
+// https://coolors.co/52154e-ffffff-007acc-111344-efe9e7
+
 .top-navbar {
-  background-color: #007ACC;
-  color: white;
+  background-color: #007acc;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   padding: 10px;
+
+  * {
+    color: #fff;
+  }
 }
