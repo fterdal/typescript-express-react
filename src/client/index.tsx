@@ -2,13 +2,16 @@ import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { NavBar } from './components'
+import { useDispatch } from 'react-redux'
+import { fetchCookies } from './store'
 
 import store from './store'
 
 const App = () => {
+  const dispatch = useDispatch()
   useEffect(() => {
-    store.dispatch({ type: 'HELLO_REDUX' })
-  })
+    dispatch(fetchCookies())
+  }, [])
   return (
     <Provider store={store}>
       <NavBar />
@@ -17,4 +20,9 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+)
