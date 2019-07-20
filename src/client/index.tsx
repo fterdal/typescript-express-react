@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { NavBar } from './components'
+import { NavBar, ListCookies } from './components'
 import { useDispatch } from 'react-redux'
 import { fetchCookies } from './store'
 
@@ -16,6 +16,7 @@ const App = () => {
     <>
       <NavBar />
       <h3 style={{ textAlign: 'center' }}>Home Page</h3>
+      <ListCookies />
     </>
   )
 }
