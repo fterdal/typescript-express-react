@@ -13,10 +13,10 @@ const App = () => {
     dispatch(fetchCookies())
   }, [])
   return (
-    <Provider store={store}>
+    <>
       <NavBar />
       <h3 style={{ textAlign: 'center' }}>Home Page</h3>
-    </Provider>
+    </>
   )
 }
 
