@@ -43,10 +43,17 @@ export const SingleCookie = (props: any) => {
           />
         </label>
         <label>
+          {/* Try loading the single cookie component on a hard refresh where the cookie
+              glutenFree is true. Then check the box. At present, it won't change.
+              However, the hook's state does seem to change, just not the html element's state. */}
           <input
             type="checkbox"
-            checked={newGlutenFree !== undefined ? newGlutenFree : glutenFree}
-            onChange={evt => setNewGlutenFree(newGlutenFree ? undefined : true)}
+            // checked={newGlutenFree !== undefined ? undefined : true}
+            // checked={newGlutenFree}
+            onChange={evt => {
+              console.log('changing checkbox', newGlutenFree)
+              setNewGlutenFree(newGlutenFree ? undefined : true)
+            }}
           />
         </label>
         <div>{glutenFree ? 'Gluten Free!' : 'Contains Gluten'}</div>
