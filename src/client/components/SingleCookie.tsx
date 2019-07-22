@@ -9,28 +9,29 @@ export const SingleCookie = (props: any) => {
   const selectedCookie = useSelector((store: AppState) =>
     store.cookies.find(cookie => cookie.id === selectedId)
   )
-  const [newName, setNewName] = useState(
-    (selectedCookie && selectedCookie.name) || null
-  )
-  const [newQuantity, setNewQuantity] = useState(
-    (selectedCookie && selectedCookie.quantity) || null
-  )
-  const [newGlutenFree, setNewGlutenFree] = useState(
-    (selectedCookie && selectedCookie.glutenFree) || undefined
-  )
-  if (!selectedCookie) return <div>Couldn't find this cookie!</div>
+  if (!selectedCookie) return <div>Cookie Not Found</div>
+  return <SingleCookieHelper {...selectedCookie} />
+}
+
+// We need this wrapper/helper pattern so that the
+const SingleCookieHelper = (props: Cookie) => {
+  const { name, quantity, glutenFree } = props
+  const [newName, setNewName] = useState(name)
+  const [newQuantity, setNewQuantity] = useState(quantity)
+  const [newGlutenFree, setNewGlutenFree] = useState(glutenFree)
 
   const handleSubmit = (evt: any) => {
     evt.preventDefault()
+    console.log({ newName, newQuantity, newGlutenFree })
   }
 
-  const { name, quantity, glutenFree } = selectedCookie
   return (
     <div className="single-cookie">
-      <form onSubmit={handleSubmit}>
+      <div />
+      <form className="single-cookie-form" onSubmit={handleSubmit}>
         <h2>
           <input
-            value={newName !== null ? newName : name}
+            value={newName}
             onChange={evt => setNewName(evt.target.value)}
           />
         </h2>
@@ -38,29 +39,23 @@ export const SingleCookie = (props: any) => {
           Quantity:
           <input
             type="number"
-            value={newQuantity !== null ? newQuantity : quantity}
+            value={newQuantity}
             onChange={evt => setNewQuantity(Number(evt.target.value))}
           />
         </label>
         <label>
-          {/* Try loading the single cookie component on a hard refresh where the cookie
-              glutenFree is true. Then check the box. At present, it won't change.
-              However, the hook's state does seem to change, just not the html element's state. */}
+          Gluten-Free?<span>&nbsp;</span>
           <input
             type="checkbox"
-            // checked={newGlutenFree !== undefined ? undefined : true}
-            // checked={newGlutenFree}
-            onChange={evt => {
-              console.log('changing checkbox', newGlutenFree)
-              setNewGlutenFree(newGlutenFree ? undefined : true)
-            }}
+            checked={newGlutenFree}
+            onChange={() => setNewGlutenFree(!newGlutenFree)}
           />
         </label>
-        <div>{glutenFree ? 'Gluten Free!' : 'Contains Gluten'}</div>
         <button className="edit-cookie-button" type="submit">
-          Submit
+          Submit Changes
         </button>
       </form>
+      <div />
     </div>
   )
 }

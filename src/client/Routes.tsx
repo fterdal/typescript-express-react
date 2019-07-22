@@ -9,7 +9,7 @@ export const Routes = () => {
       <Switch>
         <Route path="/cookies/:id" component={SingleCookie} />
         <Route path="/cookies" component={ListCookies} />
-        <Route exact path="/" component={HomePage} />
+        <Route path="/" component={HomePage} />
       </Switch>
     </Router>
   )

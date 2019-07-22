@@ -1,10 +1,16 @@
 .single-cookie {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   input {
+    text-align: center;
+  }
+  .single-cookie-form {
     text-align: center;
   }
   margin-top: 5rem;
   .edit-cookie-button {
     margin-top: 2rem;
+    background-color: #52154E;
   }
 }
