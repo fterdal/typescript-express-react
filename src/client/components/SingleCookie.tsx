@@ -9,24 +9,51 @@ export const SingleCookie = (props: any) => {
   const selectedCookie = useSelector((store: AppState) =>
     store.cookies.find(cookie => cookie.id === selectedId)
   )
-
-  // This early return before the hooks will cause React a lot of confusion!
-  // Gonna have to refactor...
+  const [newName, setNewName] = useState(
+    (selectedCookie && selectedCookie.name) || null
+  )
+  const [newQuantity, setNewQuantity] = useState(
+    (selectedCookie && selectedCookie.quantity) || null
+  )
+  const [newGlutenFree, setNewGlutenFree] = useState(
+    (selectedCookie && selectedCookie.glutenFree) || null
+  )
   if (!selectedCookie) return <div>Couldn't find this cookie!</div>
+
+  const handleSubmit = (evt: any) => {
+    evt.preventDefault()
+  }
+
   const { name, quantity, glutenFree } = selectedCookie
-  const [newName, setNewName] = useState(name)
-  const [newQuantity, setNewQuantity] = useState(quantity)
-  const [newGlutenFree, setNewGlutenFree] = useState(glutenFree)
-  console.log(newName)
   return (
     <div className="single-cookie">
-      <div>
+      <form onSubmit={handleSubmit}>
         <h2>
-          <input value={newName} onChange={evt => setNewName(evt.target.value)} />
+          <input
+            value={newName !== null ? newName : name}
+            onChange={evt => setNewName(evt.target.value)}
+          />
         </h2>
-        <div>Quantity: {quantity}</div>
+        <label>
+          Quantity:
+          <input
+            type="number"
+            value={newQuantity !== null ? newQuantity : quantity}
+            onChange={evt => setNewQuantity(Number(evt.target.value))}
+          />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={newGlutenFree !== null ? newGlutenFree : glutenFree}
+            onChange={evt => setNewGlutenFree(newGlutenFree ? null : true)}
+          />
+        </label>
         <div>{glutenFree ? 'Gluten Free!' : 'Contains Gluten'}</div>
-      </div>
+        <button className="edit-cookie-button" type="submit">
+          Submit
+        </button>
+      </form>
     </div>
   )
 }

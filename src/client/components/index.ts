@@ -1,4 +1,4 @@
 export * from './NavBar'
 export * from './ListCookies'
-export * from './SingleCookie'
+export { SingleCookie } from './SingleCookie'
 export * from './HomePage'
