@@ -7,8 +7,11 @@ interface Cookie {
   quantity: number
 }
 
+// TODO: Figure out if this is actually the best way to interface an array...
+// https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects-with-typescript
 interface CookiesState {
   [index: number]: Cookie
+  length: number
 }
 
 // ACTION TYPES

@@ -3,14 +3,16 @@ import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import { cookiesReducer } from './cookies'
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
   cookies: cookiesReducer,
 })
+
+export type AppState = ReturnType<typeof rootReducer>
 
 export * from './cookies'
 
 export default createStore(
-  reducer,
+  rootReducer,
   applyMiddleware(
     thunk,
     createLogger({
