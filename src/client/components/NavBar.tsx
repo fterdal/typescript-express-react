@@ -6,7 +6,7 @@ export const NavBar = () => {
   return (
     <nav className="top-navbar">
       <NavLink to="/">Cookie Shop</NavLink>
-      <NavLink to="/cookies">All Cookies</NavLink>
+      <NavLink to="/cookies">Cookies</NavLink>
     </nav>
   )
 }
