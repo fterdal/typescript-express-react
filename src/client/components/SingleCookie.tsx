@@ -9,11 +9,15 @@ export const SingleCookie = (props: any) => {
   const selectedCookie = useSelector((store: AppState) =>
     store.cookies.find(cookie => cookie.id === selectedId)
   )
-  if (!selectedCookie) return <div>Cookie Not Found</div>
+  if (!selectedCookie) {
+    return <div className="cookie-not-found">Cookie Not Found</div>
+  }
   return <SingleCookieHelper {...selectedCookie} />
 }
 
-// We need this wrapper/helper pattern so that the
+// We need this wrapper/helper pattern here. If we tried to write an early return
+// as above, we couldn't also use hooks with the resulting data, because they may
+// not fire in the same order on successive renders.
 const SingleCookieHelper = (props: Cookie) => {
   const { name, quantity, glutenFree } = props
   const [newName, setNewName] = useState(name)
