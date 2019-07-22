@@ -6,6 +6,7 @@ export const fakeCookies: CookieInstance[] = [
   { name: 'macadamia nut', quantity: 13, glutenFree: false },
   { name: 'double fudge', quantity: 24, glutenFree: false },
   { name: 'vanilla wafer', quantity: 16, glutenFree: true },
+  { name: 'snickerdoodle', quantity: 8, glutenFree: true },
 ]
 
 export const seedCookies = async (): Promise<void> => {

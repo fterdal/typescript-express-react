@@ -1,6 +1,21 @@
 .list-cookies {
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   ul {
     list-style: none;
+  }
+  .single-cookie-card {
+    width: 215px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid 1px black;
+    padding: 1rem;
+    margin: 1rem;
+    .gluten-free {
+      border-top: solid 1px black;
+    }
   }
 }

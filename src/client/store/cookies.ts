@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-interface Cookie {
+export interface Cookie {
   id?: number
   name: string
   glutenFree: boolean
@@ -9,10 +9,14 @@ interface Cookie {
 
 // TODO: Figure out if this is actually the best way to interface an array...
 // https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects-with-typescript
-interface CookiesState {
-  [index: number]: Cookie
-  length: number
-}
+// interface CookiesState {
+//   [index: number]: Cookie
+//   length: number
+//   map: Function
+// }
+
+// Huh, maybe this works too!? Not as silly as manually adding .length, .map()
+interface CookiesState extends Array<Cookie> {}
 
 // ACTION TYPES
 const SET_COOKIES = 'SET_COOKIES'
