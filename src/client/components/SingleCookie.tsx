@@ -16,7 +16,7 @@ export const SingleCookie = (props: any) => {
     (selectedCookie && selectedCookie.quantity) || null
   )
   const [newGlutenFree, setNewGlutenFree] = useState(
-    (selectedCookie && selectedCookie.glutenFree) || null
+    (selectedCookie && selectedCookie.glutenFree) || undefined
   )
   if (!selectedCookie) return <div>Couldn't find this cookie!</div>
 
@@ -45,8 +45,8 @@ export const SingleCookie = (props: any) => {
         <label>
           <input
             type="checkbox"
-            checked={newGlutenFree !== null ? newGlutenFree : glutenFree}
-            onChange={evt => setNewGlutenFree(newGlutenFree ? null : true)}
+            checked={newGlutenFree !== undefined ? newGlutenFree : glutenFree}
+            onChange={evt => setNewGlutenFree(newGlutenFree ? undefined : true)}
           />
         </label>
         <div>{glutenFree ? 'Gluten Free!' : 'Contains Gluten'}</div>
