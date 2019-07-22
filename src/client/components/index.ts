@@ -1,2 +1,3 @@
-export { default as NavBar } from './NavBar'
-export { default as ListCookies } from './ListCookies'
+export * from './NavBar'
+export * from './ListCookies'
+export * from './HomePage'

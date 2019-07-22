@@ -1,13 +1,12 @@
 import React from 'react'
 
 import './NavBar.scss'
+import { NavLink } from 'react-router-dom';
 export const NavBar = () => {
   return (
     <nav className="top-navbar">
-      <div>Typescript In React</div>
-      <a href="/api/cookies">All Cookies</a>
+      <NavLink to="/">Cookie Shop</NavLink>
+      <NavLink to="/cookies">All Cookies</NavLink>
     </nav>
   )
 }
-
-export default NavBar

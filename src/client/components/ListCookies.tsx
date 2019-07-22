@@ -15,7 +15,9 @@ export const ListCookies = () => {
                 <h3>{cookie.name}</h3>
                 <div>Quantity: {cookie.quantity}</div>
               </div>
-              <div className="gluten-free">{cookie.glutenFree ? 'Gluten Free!' : 'Contains Gluten'}</div>
+              <div className="gluten-free">
+                {cookie.glutenFree ? 'Gluten Free!' : 'Contains Gluten'}
+              </div>
             </div>
           ))}
         </div>
@@ -25,5 +27,3 @@ export const ListCookies = () => {
     </>
   )
 }
-
-export default ListCookies
