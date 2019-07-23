@@ -24,19 +24,17 @@ export const SingleCookie = (props: any) => {
       {...selectedCookie}
       id={selectedId}
       redirect={redirectToCookies}
-      editExisting={true}
     />
   )
 }
 
 interface SingleCookieProps extends Cookie {
-  id: number
   redirect: () => void
-  editExisting: boolean
 }
 
 export const SingleCookieHelper = (props: SingleCookieProps) => {
-  const { id, name, quantity, glutenFree, redirect, editExisting } = props
+  const { id, name, quantity, glutenFree, redirect } = props
+  const editExisting = typeof id === 'number'
   const [newName, setNewName] = useState(name)
   const [newQuantity, setNewQuantity] = useState(quantity)
   const [newGlutenFree, setNewGlutenFree] = useState(glutenFree)
@@ -44,7 +42,8 @@ export const SingleCookieHelper = (props: SingleCookieProps) => {
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault()
-    if (editExisting) {
+    // I really wish I could use editExisting here, but Typescript will complain
+    if (typeof id === 'number') {
       dispatch(
         putCookie(id, {
           name: newName,
@@ -65,7 +64,9 @@ export const SingleCookieHelper = (props: SingleCookieProps) => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteCookie(id))
+    if (typeof id === 'number') {
+      dispatch(deleteCookie(id))
+    }
     redirect()
   }
 
