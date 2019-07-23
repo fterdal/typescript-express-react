@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 export interface Cookie {
   id?: number
@@ -27,6 +27,10 @@ interface SetCookiesAction {
   cookies: Cookie[]
 }
 interface AddCookieAction {
+  type: typeof ADD_COOKIE
+  cookie: Cookie
+}
+interface ThunkAction {
   type: typeof ADD_COOKIE
   cookie: Cookie
 }
@@ -64,6 +68,19 @@ export const postCookie = (cookieToAdd: Cookie) => async (
   try {
     const { data: cookie } = await axios.post('/api/cookies', cookieToAdd)
     dispatch(addCookie(cookie))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// TODO: Figure out how to dispatch another thunk from within this one, even
+// though, currently, the fetchCookies thunk returns void and can't be "dispatched".
+export const putCookie = (id: number, cookieToEdit: Cookie) => async (
+  dispatch: any // Not ideal, but will probably do for now.
+) => {
+  try {
+    await axios.put(`/api/cookies/${id}`, cookieToEdit)
+    dispatch(fetchCookies())
   } catch (err) {
     console.log(err)
   }

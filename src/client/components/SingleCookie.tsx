@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { AppState, Cookie } from '../store'
+import { AppState, Cookie, postCookie } from '../store'
 
 import './SingleCookie.scss'
 export const SingleCookie = (props: any) => {
@@ -23,10 +23,16 @@ const SingleCookieHelper = (props: Cookie) => {
   const [newName, setNewName] = useState(name)
   const [newQuantity, setNewQuantity] = useState(quantity)
   const [newGlutenFree, setNewGlutenFree] = useState(glutenFree)
+  const dispatch = useDispatch()
 
   const handleSubmit = (evt: any) => {
     evt.preventDefault()
     console.log({ newName, newQuantity, newGlutenFree })
+    dispatch(postCookie({
+      name: newName,
+      quantity: newQuantity,
+      glutenFree: newGlutenFree,
+    }))
   }
 
   return (
