@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { AppState, Cookie, postCookie } from '../store'
+import { AppState, Cookie, putCookie } from '../store'
 
 import './SingleCookie.scss'
 export const SingleCookie = (props: any) => {
@@ -19,20 +19,22 @@ export const SingleCookie = (props: any) => {
 // as above, we couldn't also use hooks with the resulting data, because they may
 // not fire in the same order on successive renders.
 const SingleCookieHelper = (props: Cookie) => {
-  const { name, quantity, glutenFree } = props
+  const { id, name, quantity, glutenFree } = props
   const [newName, setNewName] = useState(name)
   const [newQuantity, setNewQuantity] = useState(quantity)
   const [newGlutenFree, setNewGlutenFree] = useState(glutenFree)
   const dispatch = useDispatch()
 
-  const handleSubmit = (evt: any) => {
+  const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault()
     console.log({ newName, newQuantity, newGlutenFree })
-    dispatch(postCookie({
-      name: newName,
-      quantity: newQuantity,
-      glutenFree: newGlutenFree,
-    }))
+    dispatch(
+      putCookie(id as number, {
+        name: newName,
+        quantity: newQuantity,
+        glutenFree: newGlutenFree,
+      })
+    )
   }
 
   return (
