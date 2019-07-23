@@ -23,6 +23,6 @@
   .single-cookie-card:hover {
     box-shadow: none;
     transform: translate(3px, 3px);
-    transition: transform 0.25s linear;
+    transition: transform 0.25s ease-out;
   }
 }
