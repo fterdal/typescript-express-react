@@ -33,14 +33,14 @@ const SingleCookieHelper = (props: Cookie) => {
     <div className="single-cookie">
       <div />
       <form className="single-cookie-form" onSubmit={handleSubmit}>
-        <h2>
+        <div className="single-cookie-name">
           <input
             value={newName}
             onChange={evt => setNewName(evt.target.value)}
           />
-        </h2>
+        </div>
         <label>
-          Quantity:
+          Quantity:{' '}
           <input
             type="number"
             value={newQuantity}
@@ -48,7 +48,7 @@ const SingleCookieHelper = (props: Cookie) => {
           />
         </label>
         <label>
-          Gluten-Free?&nbsp;
+          Gluten-Free?{' '}
           <input
             type="checkbox"
             checked={newGlutenFree}

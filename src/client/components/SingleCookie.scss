@@ -5,10 +5,16 @@
   input {
     text-align: center;
   }
+  input[type="number"] {
+    width: 25%;
+  }
   .single-cookie-form {
     text-align: center;
   }
   margin-top: 5rem;
+  .single-cookie-name {
+    font-size: 3rem;
+  }
   .edit-cookie-button {
     margin-top: 2rem;
     background-color: #52154E;
