@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 export interface Cookie {
   id?: number
@@ -33,12 +33,12 @@ interface AddCookieAction {
 export type CookiesActionTypes = SetCookiesAction | AddCookieAction
 
 // ACTION CREATORS
-const setCookies = (cookies: Cookie[]): CookiesActionTypes => ({
+const setCookies = (cookies: Cookie[]): SetCookiesAction => ({
   type: SET_COOKIES,
   cookies,
 })
 
-const addCookie = (cookie: Cookie): CookiesActionTypes => ({
+const addCookie = (cookie: Cookie): AddCookieAction => ({
   type: ADD_COOKIE,
   cookie,
 })
