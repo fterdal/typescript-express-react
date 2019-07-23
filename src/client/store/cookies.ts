@@ -7,16 +7,8 @@ export interface Cookie {
   quantity: number
 }
 
-// TODO: Figure out if this is actually the best way to interface an array...
-// https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects-with-typescript
-// interface CookiesState {
-//   [index: number]: Cookie
-//   length: number
-//   map: Function
-// }
-
-// Huh, maybe this works too!? Not as silly as manually adding .length, .map()
-interface CookiesState extends Array<Cookie> {}
+// Your own custom TypeGuard
+// export const thing: (arg: any) => boolean = runTimeCheck(Cookie)
 
 // ACTION TYPES
 const SET_COOKIES = 'SET_COOKIES'
@@ -95,7 +87,7 @@ export const postCookie = (cookieToAdd: Cookie) => async (
 }
 
 export const putCookie = (id: number, cookieToEdit: Cookie) => async (
-  dispatch: any // Not ideal, but will probably do for now.
+  dispatch: (thunkCreator: Function) => void // Not ideal, but will probably do for now.
 ) => {
   try {
     await axios.put(`/api/cookies/${id}`, cookieToEdit)
@@ -105,11 +97,13 @@ export const putCookie = (id: number, cookieToEdit: Cookie) => async (
   }
 }
 
+type CookiesState = Cookie[]
+
 const initialState: CookiesState = []
 
 // REDUCER
 export const cookiesReducer = (
-  state = initialState,
+  state: CookiesState = initialState,
   action: CookiesActionTypes
 ): CookiesState => {
   switch (action.type) {

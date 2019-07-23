@@ -28,6 +28,7 @@ export class Cookie {
   }
 
   async create(cookie: CookieInstance): Promise<CookieInstance> {
+    // if ('cookie is not actually a cookie') throw new Error()
     const newCookie = { ...cookie, id: this.nextId() }
     this.cookies.push(newCookie)
     return newCookie
