@@ -37,6 +37,11 @@ const SingleCookieHelper = (props: Cookie) => {
     )
   }
 
+  const handleDelete = (evt: /* MouseEvent */ any) => {
+    console.log(evt.target)
+    // dispatch(deleteCookie(id))
+  }
+
   return (
     <div className="single-cookie">
       <div />
@@ -65,6 +70,13 @@ const SingleCookieHelper = (props: Cookie) => {
         </label>
         <button className="edit-cookie-button" type="submit">
           Submit Changes
+        </button>
+        <button
+          type="button"
+          className="button-outline delete-cookie-button"
+          onClick={handleDelete}
+        >
+          DELETE
         </button>
       </form>
       <div />

@@ -21,6 +21,7 @@ interface CookiesState extends Array<Cookie> {}
 // ACTION TYPES
 const SET_COOKIES = 'SET_COOKIES'
 const ADD_COOKIE = 'ADD_COOKIE'
+const REMOVE_COOKIE = 'REMOVE_COOKIE'
 
 interface SetCookiesAction {
   type: typeof SET_COOKIES
@@ -30,11 +31,15 @@ interface AddCookieAction {
   type: typeof ADD_COOKIE
   cookie: Cookie
 }
-interface ThunkAction {
-  type: typeof ADD_COOKIE
-  cookie: Cookie
+interface RemoveCookieAction {
+  type: typeof REMOVE_COOKIE
+  cookieId: number
 }
-export type CookiesActionTypes = SetCookiesAction | AddCookieAction
+
+export type CookiesActionTypes =
+  | SetCookiesAction
+  | AddCookieAction
+  | RemoveCookieAction
 
 // ACTION CREATORS
 // I'd prefer to be able to use CookiesActionTypes here instead of the more
@@ -49,6 +54,10 @@ const addCookie = (cookie: Cookie): AddCookieAction => ({
   type: ADD_COOKIE,
   cookie,
 })
+const removeCookie = (cookieId: number): RemoveCookieAction => ({
+  type: REMOVE_COOKIE,
+  cookieId,
+})
 
 // THUNK CREATORS
 export const fetchCookies = () => async (
@@ -62,6 +71,18 @@ export const fetchCookies = () => async (
   }
 }
 
+export const deleteCookie = (cookieId: number) => async (
+  dispatch: (actionCreator: { type: string; cookieId: number }) => void
+) => {
+  try {
+    await axios.delete(`/api/cookies/${cookieId}`)
+    dispatch(removeCookie(cookieId))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// TODO: Use this to make a new cookie form
 export const postCookie = (cookieToAdd: Cookie) => async (
   dispatch: (actionCreator: { type: string; cookie: Cookie }) => void
 ) => {
@@ -73,8 +94,6 @@ export const postCookie = (cookieToAdd: Cookie) => async (
   }
 }
 
-// TODO: Figure out how to dispatch another thunk from within this one, even
-// though, currently, the fetchCookies thunk returns void and can't be "dispatched".
 export const putCookie = (id: number, cookieToEdit: Cookie) => async (
   dispatch: any // Not ideal, but will probably do for now.
 ) => {
@@ -96,6 +115,12 @@ export const cookiesReducer = (
   switch (action.type) {
     case SET_COOKIES: {
       return action.cookies
+    }
+    case ADD_COOKIE: {
+      return [...state, action.cookie]
+    }
+    case REMOVE_COOKIE: {
+      return state.filter(cookie => cookie.id !== action.cookieId)
     }
     default: {
       return state
