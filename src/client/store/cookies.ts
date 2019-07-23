@@ -33,6 +33,9 @@ interface AddCookieAction {
 export type CookiesActionTypes = SetCookiesAction | AddCookieAction
 
 // ACTION CREATORS
+// I'd prefer to be able to use CookiesActionTypes here instead of the more
+// specific SetCookiesAction, but TypeScript doesn't seem to be inferring
+// return type correctly.
 const setCookies = (cookies: Cookie[]): SetCookiesAction => ({
   type: SET_COOKIES,
   cookies,
