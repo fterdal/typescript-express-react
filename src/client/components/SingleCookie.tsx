@@ -48,7 +48,7 @@ const SingleCookieHelper = (props: Cookie) => {
           />
         </label>
         <label>
-          Gluten-Free?<span>&nbsp;</span>
+          Gluten-Free?&nbsp;
           <input
             type="checkbox"
             checked={newGlutenFree}

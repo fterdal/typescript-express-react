@@ -20,17 +20,27 @@ interface CookiesState extends Array<Cookie> {}
 
 // ACTION TYPES
 const SET_COOKIES = 'SET_COOKIES'
+const ADD_COOKIE = 'ADD_COOKIE'
 
 interface SetCookiesAction {
   type: typeof SET_COOKIES
   cookies: Cookie[]
 }
-export type CookiesActionTypes = SetCookiesAction
+interface AddCookieAction {
+  type: typeof ADD_COOKIE
+  cookie: Cookie
+}
+export type CookiesActionTypes = SetCookiesAction | AddCookieAction
 
 // ACTION CREATORS
 const setCookies = (cookies: Cookie[]): CookiesActionTypes => ({
   type: SET_COOKIES,
   cookies,
+})
+
+const addCookie = (cookie: Cookie): CookiesActionTypes => ({
+  type: ADD_COOKIE,
+  cookie,
 })
 
 // THUNK CREATORS
@@ -40,7 +50,20 @@ export const fetchCookies = () => async (
   try {
     const { data: cookies } = await axios.get('/api/cookies')
     dispatch(setCookies(cookies))
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const postCookie = (cookieToAdd: Cookie) => async (
+  dispatch: (actionCreator: { type: string; cookie: Cookie }) => void
+) => {
+  try {
+    const { data: cookie } = await axios.post('/api/cookies', cookieToAdd)
+    dispatch(addCookie(cookie))
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const initialState: CookiesState = []
